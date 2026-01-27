@@ -19,6 +19,14 @@ public class PacienteDaoImpl extends GenericDaoImpl<Paciente, Long> implements P
     }
 
     @Override
+	public Paciente login(String usuario, String contra) {
+		
+    	
+		return null;
+	}
+    
+    
+    @Override
     public List<Paciente> buscarPorNombre(String nombre) {
         TypedQuery<Paciente> query = em.createQuery(
                 "SELECT p FROM Paciente p WHERE p.nombre = :nombre", Paciente.class);
@@ -42,4 +50,6 @@ public class PacienteDaoImpl extends GenericDaoImpl<Paciente, Long> implements P
         query.setParameter("docId", doctorId);
         return query.getResultList();
     }
+
+	
 }

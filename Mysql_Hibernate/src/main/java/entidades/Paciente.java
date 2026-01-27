@@ -13,7 +13,13 @@ public class Paciente {
     private Long idPaciente;
 
     private String nombre;
-
+    
+    private String usuario;
+    
+    private String contraseña;
+    
+    private double precio;
+    
     @Column(name = "fecha_nacimiento")
     private Date fechaNacimiento;
 

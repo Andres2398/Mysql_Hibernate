@@ -31,7 +31,8 @@ public class GenericDaoImpl<T, ID> implements GenericDao<T, ID> {
     public T actualizar(T entidad) {
         return em.merge(entidad);
     }
-
+    
+    
     @Override
     public void eliminar(T entidad) {
        
