@@ -10,7 +10,7 @@ public class CrearBaseDatos {
 			+ "&serverTimezone=UTC";
 
 	private static final String USER = "root";
-	private static final String PASSWORD = "Andres!";
+	private static final String PASSWORD = "root";
 
 	public static void creaBaseDatos() {
 

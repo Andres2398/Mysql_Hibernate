@@ -38,11 +38,11 @@ public class Paciente {
 	public Paciente() {
 	}
 
-	public Paciente(String nombre, String usuario, String password, Double cuotaMensual, Date fechaNacimiento) {
+	public Paciente(String nombre, String usuario, String password,  Date fechaNacimiento) {
 		this.nombre = nombre;
 		this.usuario = usuario;
 		this.password = password;
-		this.cuotaMensual = cuotaMensual;
+		
 		this.fechaNacimiento = fechaNacimiento;
 	}
 
