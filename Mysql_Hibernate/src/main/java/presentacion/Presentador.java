@@ -22,13 +22,21 @@ public class Presentador {
 
 	private void aTrabajar() {
 		vista.login();
+		try {
+			wait();
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		vista.interfazUsuario(paciente);
 		
 	}
 
-	public void confirmarCreacionUsuario(String usuario, String contrasena, String nombre, Date fechaNacimiento) {
+	public boolean confirmarCreacionUsuario(String usuario, String contrasena, String nombre, Date fechaNacimiento) {
 		Paciente p=casoUno.ejecutar(nombre, usuario, nombre, null, fechaNacimiento);
 		paciente = p;
+		return p==null;
+		
 		
 	}
 

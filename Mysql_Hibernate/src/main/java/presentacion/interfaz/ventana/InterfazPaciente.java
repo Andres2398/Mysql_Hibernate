@@ -1,6 +1,6 @@
 package presentacion.interfaz.ventana;
 
-
+import presentacion.Vista;
 
 /**
  *
@@ -11,9 +11,13 @@ public class InterfazPaciente extends javax.swing.JFrame {
 
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(InterfazPaciente.class.getName());
 
-    /** Creates new form InterfazPaciente */
-    public InterfazPaciente() {
+    /** Creates new form InterfazPaciente 
+     * @param vista */
+    
+    private Vista vista;
+    public InterfazPaciente(Vista vista) {
         initComponents();
+        this.vista=vista;
     }
     
     
@@ -72,8 +76,9 @@ private void btnRellenarActionPerformed(java.awt.event.ActionEvent evt) {
         btnContratar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-
-        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/interfazhospital/clinica (1).jpg"))); // NOI18N
+        
+        
+        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/clinica (1).jpg"))); // NOI18N
         jLabel1.setLabelFor(jLabel1);
 
         jLabel2.setText("Nombre");
