@@ -6,25 +6,25 @@ import java.sql.Statement;
 
 public class CrearBaseDatos {
 
-    private static final String URL =
-            "jdbc:mysql://localhost:3306/?useSSL=false&serverTimezone=UTC";
-    private static final String USER = "root";
-    private static final String PASSWORD = "Andres!";
+	private static final String URL = "jdbc:mysql://localhost:3306/" + "?useSSL=false" + "&allowPublicKeyRetrieval=true"
+			+ "&serverTimezone=UTC";
 
-    public static void CreaBaseDatos() {
+	private static final String USER = "root";
+	private static final String PASSWORD = "Andres!";
 
-        try (Connection conn = DriverManager.getConnection(URL, USER, PASSWORD);
-             Statement stmt = conn.createStatement()) {
+	public static void creaBaseDatos() {
 
-            String sql = "CREATE DATABASE IF NOT EXISTS hospital " +
-                         "CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci";
+		try (Connection conn = DriverManager.getConnection(URL, USER, PASSWORD);
+				Statement stmt = conn.createStatement()) {
 
-            stmt.executeUpdate(sql);
+			String sql = "CREATE DATABASE IF NOT EXISTS hospital " + "CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci";
 
-            System.out.println("✅ Base de datos verificada/creada");
+			stmt.executeUpdate(sql);
 
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
+			System.out.println("✅ Base de datos verificada/creada");
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
 }

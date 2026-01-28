@@ -1,14 +1,12 @@
 package app;
 
-import casos_uso.Caso_uso_CRUD;
-import entidades.Interfaz_de_Pasarela_Clientes;
-import entidades.Interfaz_de_Pasarela_Reservas;
+import casos_uso.CasoUsoRegistrar;
+import entidades.Paciente;
 import jakarta.persistence.EntityManager;
 import pasarela.CrearBaseDatos;
 import pasarela.InicializarBaseDatos;
 import pasarela.PacienteDaoImpl;
-import pasarela_datos.Pasarela_sqlite_Clientes;
-import pasarela_datos.Pasarela_sqlite_Reservas;
+import presentacion.Presentador;
 
 /**
  * 
@@ -18,30 +16,24 @@ import pasarela_datos.Pasarela_sqlite_Reservas;
  */
 public class App {
 
-    public static void main(String[] args) {
-    	
-        System.out.println("=========================================");
-        System.out.println("    INICIANDO SISTEMA DE GESTIÓN         ");
-        System.out.println("=========================================\n");
+	public static void main(String[] args) {
 
-        CrearBaseDatos.CreaBaseDatos();
-        InicializarBaseDatos.inicializarDatos();
-       
-        
-        EntityManager em = HibernateUtil.getSessionFactory().openSession();
-        
-        PacienteDaoImpl pasarelaPaciente = new PacienteDaoImpl(em);
-        
-        Caso_uso_CRUD caso1 = new Caso_uso_CRUD(pasarelaPaciente);
-        
+		System.out.println("=========================================");
+		System.out.println("    INICIANDO SISTEMA DE GESTIÓN         ");
+		System.out.println("=========================================\n");
+
+		CrearBaseDatos.creaBaseDatos();
 		
-       
-        
-        
-        System.out.println("\n=========================================");
-        System.out.println("          FIN                              ");
-        System.out.println("===========================================");
-        
-        
-    }
+		
+		InicializarBaseDatos.inicializarDatos();
+
+		EntityManager em = HibernateUtil.getSessionFactory().openSession();
+
+		PacienteDaoImpl pasarelaPaciente = new PacienteDaoImpl(em);
+
+		CasoUsoRegistrar caso1 = new CasoUsoRegistrar(pasarelaPaciente);
+		
+		new Presentador(caso1);
+
+	}
 }

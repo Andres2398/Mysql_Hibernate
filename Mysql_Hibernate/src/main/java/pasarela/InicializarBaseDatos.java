@@ -2,81 +2,46 @@ package pasarela;
 
 import org.hibernate.Session;
 import org.hibernate.Transaction;
-import org.hibernate.query.Query;
 
 import app.HibernateUtil;
-import entidades.Cita;
 import entidades.Doctor;
-import entidades.HistorialMedico;
-import entidades.Paciente;
-
-import java.sql.Date;
-import java.util.Set;
 
 public class InicializarBaseDatos {
 
-	public static void inicializarDatos() {
+    public static void inicializarDatos() {
 
-		Session session = null;
-		Transaction tx = null;
+        Session session = null;
+        Transaction tx = null;
 
-		try {
-			session = HibernateUtil.getSessionFactory().openSession();
-			tx = session.beginTransaction();
+        try {
+            session = HibernateUtil.getSessionFactory().openSession();
+            tx = session.beginTransaction();
 
-		
-			Query<Long> query = session.createQuery("SELECT COUNT(d) FROM Doctor d", Long.class);
-			Long count = query.uniqueResult();
+            Long count = session
+                    .createQuery("SELECT COUNT(d) FROM Doctor d", Long.class)
+                    .uniqueResult();
 
-			if (count != null && count > 0) {
-				
-				return;
-			}
+            if (count != null && count > 0) {
+               
+                tx.commit();
+                return;
+            }
 
-			Doctor doctor1 = new Doctor("Juan Pérez", "Cardiología");
-			Doctor doctor2 = new Doctor("Ana Gómez", "Pediatría");
+            session.persist(new Doctor("Juan Pérez", "Cardiología"));
+            session.persist(new Doctor("Ana Gómez", "Pediatría"));
+            session.persist(new Doctor("Luis Martín", "Traumatología"));
+            session.persist(new Doctor("Laura Ruiz", "Dermatología"));
+            session.persist(new Doctor("Carlos Santos", "Neurología"));
 
-			session.persist(doctor1);
-			session.persist(doctor2);
+            tx.commit();
+            System.out.println("✅ Doctores iniciales insertados");
 
-			Paciente paciente1 = new Paciente("Carlos López", Date.valueOf("1990-05-12"));
+        } catch (Exception e) {
+            if (tx != null) tx.rollback();
+            e.printStackTrace();
 
-			Paciente paciente2 = new Paciente("María Torres", Date.valueOf("1985-09-23"));
-
-			
-			HistorialMedico historial1 = new HistorialMedico("O+", "Ninguna");
-			historial1.setPaciente(paciente1);
-			paciente1.setHistorialMedico(historial1);
-
-			HistorialMedico historial2 = new HistorialMedico("A-", "Penicilina");
-			historial2.setPaciente(paciente2);
-			paciente2.setHistorialMedico(historial2);
-
-			paciente1.setDoctores(Set.of(doctor1, doctor2));
-			paciente2.setDoctores(Set.of(doctor1));
-
-			session.persist(paciente1);
-			session.persist(paciente2);
-
-			Cita cita1 = new Cita(Date.valueOf("2026-01-27"), doctor1, paciente1);
-			Cita cita2 = new Cita(Date.valueOf("2026-01-28"), doctor2, paciente1);
-			Cita cita3 = new Cita(Date.valueOf("2026-01-29"), doctor1, paciente2);
-
-			session.persist(cita1);
-			session.persist(cita2);
-			session.persist(cita3);
-
-			tx.commit();
-
-		
-
-		} catch (Exception e) {
-			if (tx != null)
-				tx.rollback();
-		
-		} finally {
-			if (session != null)
-				session.close();
-		}
-	}
+        } finally {
+            if (session != null) session.close();
+        }
+    }
 }

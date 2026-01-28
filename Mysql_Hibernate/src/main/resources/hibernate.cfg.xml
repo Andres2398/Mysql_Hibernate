@@ -19,10 +19,10 @@
 		<property name="hibernate.show_sql">true</property>
 		
         <!-- Entidades -->
-        <mapping class="Paciente"/>
-        <mapping class="Doctor"/>
-        <mapping class="Cita"/>
-        <mapping class="HistorialMedico"/>
+        <mapping class="entidades.Paciente"/>
+        <mapping class="entidades.Doctor"/>
+        <mapping class="entidades.Cita"/>
+        <mapping class="entidades.HistorialMedico"/>
         
     </session-factory>
 </hibernate-configuration>

@@ -5,16 +5,9 @@ import java.util.List;
 
 public interface PacienteDao extends GenericDao<Paciente, Long> {
 
-	public Paciente login(String usuario, String contra);
-	
-    Paciente buscarPorID(Long id);
+	public Paciente buscarPorUsuario(String usuario);
 
-    // Buscar por nombre
-    List<Paciente> buscarPorNombre(String nombre);
+    public boolean existeUsuario(String usuario);
 
-    // Buscar pacientes por rango de fecha de nacimiento
-    List<Paciente> buscarPorFechaNacimiento(Date desde, Date hasta);
-
-    // Buscar pacientes de un doctor específico
-    List<Paciente> buscarPorDoctorID(Long doctorId);
+    public Paciente login(String usuario, String password);
 }

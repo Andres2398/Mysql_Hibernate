@@ -8,80 +8,82 @@ import java.util.Set;
 @Table(name = "paciente")
 public class Paciente {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long idPaciente;
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Long idPaciente;
 
-    private String nombre;
-    
-    private String usuario;
-    
-    private String contraseña;
-    
-    private double precio;
-    
-    @Column(name = "fecha_nacimiento")
-    private Date fechaNacimiento;
+	private String nombre;
 
-    @OneToOne(mappedBy = "paciente", cascade = CascadeType.ALL)
-    private HistorialMedico historialMedico;
+	@Column(unique = true, nullable = false)
+	private String usuario;
 
-    @ManyToMany
-    @JoinTable(
-        name = "paciente_doctor",
-        joinColumns = @JoinColumn(name = "id_paciente"),
-        inverseJoinColumns = @JoinColumn(name = "id_doctor")
-    )
-    private Set<Doctor> doctores;
+	@Column(nullable = false)
+	private String password;
 
-    // Constructor vacío (obligatorio)
-    public Paciente() {
-    }
+	private Double cuotaMensual;
 
-    // Constructor con parámetros
-    public Paciente(String nombre, Date fechaNacimiento) {
-        this.nombre = nombre;
-        this.fechaNacimiento = fechaNacimiento;
-    }
+	@Column(name = "fecha_nacimiento")
+	private Date fechaNacimiento;
 
-    // Getters y Setters
-    public Long getIdPaciente() {
-        return idPaciente;
-    }
+	@OneToOne(mappedBy = "paciente", cascade = CascadeType.ALL)
+	private HistorialMedico historialMedico;
 
-    public void setIdPaciente(Long idPaciente) {
-        this.idPaciente = idPaciente;
-    }
+	@ManyToMany
+	@JoinTable(name = "paciente_doctor", joinColumns = @JoinColumn(name = "id_paciente"), inverseJoinColumns = @JoinColumn(name = "id_doctor"))
+	private Set<Doctor> doctores;
 
-    public String getNombre() {
-        return nombre;
-    }
+	@OneToMany(mappedBy = "paciente")
+	private Set<Cita> citas;
 
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
-    }
+	public Paciente() {
+	}
 
-    public Date getFechaNacimiento() {
-        return fechaNacimiento;
-    }
+	public Paciente(String nombre, String usuario, String password, Double cuotaMensual, Date fechaNacimiento) {
+		this.nombre = nombre;
+		this.usuario = usuario;
+		this.password = password;
+		this.cuotaMensual = cuotaMensual;
+		this.fechaNacimiento = fechaNacimiento;
+	}
 
-    public void setFechaNacimiento(Date fechaNacimiento) {
-        this.fechaNacimiento = fechaNacimiento;
-    }
+	// Getters y Setters
+	public Long getIdPaciente() {
+		return idPaciente;
+	}
 
-    public HistorialMedico getHistorialMedico() {
-        return historialMedico;
-    }
+	public void setIdPaciente(Long idPaciente) {
+		this.idPaciente = idPaciente;
+	}
 
-    public void setHistorialMedico(HistorialMedico historialMedico) {
-        this.historialMedico = historialMedico;
-    }
+	public String getNombre() {
+		return nombre;
+	}
 
-    public Set<Doctor> getDoctores() {
-        return doctores;
-    }
+	public void setNombre(String nombre) {
+		this.nombre = nombre;
+	}
 
-    public void setDoctores(Set<Doctor> doctores) {
-        this.doctores = doctores;
-    }
+	public Date getFechaNacimiento() {
+		return fechaNacimiento;
+	}
+
+	public void setFechaNacimiento(Date fechaNacimiento) {
+		this.fechaNacimiento = fechaNacimiento;
+	}
+
+	public HistorialMedico getHistorialMedico() {
+		return historialMedico;
+	}
+
+	public void setHistorialMedico(HistorialMedico historialMedico) {
+		this.historialMedico = historialMedico;
+	}
+
+	public Set<Doctor> getDoctores() {
+		return doctores;
+	}
+
+	public void setDoctores(Set<Doctor> doctores) {
+		this.doctores = doctores;
+	}
 }
